@@ -44,7 +44,7 @@
 				align-items: center;
 				justify-content: space-between;
 				border-bottom: 1rpx solid #eee;
-				line-height: 90rpx;
+				line-height: 117rpx;
 				padding-right: 40rpx;
 
 				&:last-child {

@@ -21,7 +21,7 @@
 		props: {
 			navBar: {
 				type: Array,
-				default: () => navBarList()
+				default: () => (navBarList())
 			}
 		}
 	}

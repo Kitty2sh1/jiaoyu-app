@@ -1,27 +1,25 @@
 <template>
-	<view>
-		<view class="user-page">
-			<view class="user-content">
-				<!-- 头像 -->
-				<view class="buddha">
-					<image v-if="!getToken" src="../../../static/demo/icon/hd.png" mode=""></image>
-					<image v-if="getToken && infoList.imageUrl" src="https://img1.imgtp.com/2022/12/01/6CUWDdi6.jpg"
-						mode=""></image>
+	<view class="user-page" @click="myLogin">
+		<view class="user-content">
+			<!-- 头像 用户信息 -->
+			<view class="buddha">
+				<image v-if="!getToken" src="../../../static/demo/icon/hd.png" mode=""></image>
+				<image v-if="getToken && infoList.imageUrl" src="https://img1.imgtp.com/2022/12/01/6CUWDdi6.jpg"
+					mode=""></image>
+			</view>
+			<!-- 登录文字 -->
+			<view class="user-login">
+				<view class="login-po1">
+					<text class="top">{{getToken?infoList.name:'立即登录'}}</text>
+					<text class="vip" v-if="infoList.vip && getToken">{{infoList.vip}}</text>
 				</view>
-				<!-- 登录文字 -->
-				<view class="user-login">
-					<view class="login-po1">
-						<text class="top">{{getToken?infoList.name:'立即登录'}}</text>
-						<text class="vip" v-if="infoList.vip && getToken">{{infoList.vip}}</text>
-					</view>
-					<view class="login-po2">
-						{{getToken?infoList.describe:'登录解锁更多功能'}}
-					</view>
+				<view class="login-po2">
+					{{getToken?infoList.describe:'登录解锁更多功能'}}
 				</view>
 			</view>
-			<view class="setting" v-if="getToken">
-				<text class="iconfont icon-leimupinleifenleileibie set"></text>
-			</view>
+		</view>
+		<view class="setting" v-if="getToken">
+			<text class="iconfont icon-leimupinleifenleileibie set"></text>
 		</view>
 	</view>
 </template>
@@ -32,7 +30,9 @@
 		mapGetters
 	} from "vuex"
 	import userInfo from "@/config/user-login.js"
+	// import mixinPage from "@/common/mixins/mixins.js"
 	export default {
+		// mixins:['mixinPage'],
 		name: "login",
 		props: {
 			infoList: {
@@ -42,6 +42,19 @@
 		},
 		computed: {
 			...mapGetters(['getToken'])
+		},
+		methods: {
+			myLogin() {
+				if (this.getToken) {
+					console.log('已登录');
+				} else {
+					console.log('未登录');
+					// this.navTo("/pages/user/registration")
+					uni.navigateTo({
+						url: '/pages/user/registration'
+					})
+				}
+			}
 		}
 	}
 </script>

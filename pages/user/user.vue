@@ -2,7 +2,7 @@
 	<view class="user">
 		<view class="userInfo">
 			<!-- 个人信息  登录 组件-->
-			<login></login>
+			<userInfo></userInfo>
 			<!-- nav组件 -->
 			<nav-list></nav-list>
 		</view>
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-	import login from "@/pages/user/components/login.vue"
+	import userInfo from "@/pages/user/components/userInfo.vue"
 	import navList from "@/pages/user/components/nav.vue"
 	import favour from "@/pages/user/components/favour.vue"
 	export default {
 		components: {
-			login,
+			userInfo,
 			navList,
 			favour
 		},
@@ -37,7 +37,7 @@
 	}
 
 	.userInfo {
-		height: 310rpx;
+		height: 320rpx;
 		padding: 20rpx;
 		background-color: #5ccc84;
 		border-radius: 0 0 48px 48px;

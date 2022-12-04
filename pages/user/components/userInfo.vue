@@ -3,18 +3,17 @@
 		<view class="user-content">
 			<!-- 头像 用户信息 -->
 			<view class="buddha">
-				<image v-if="!getToken" src="../../../static/demo/icon/hd.png" mode=""></image>
-				<image v-if="getToken && infoList.imageUrl" src="https://img1.imgtp.com/2022/12/01/6CUWDdi6.jpg"
-					mode=""></image>
+				<image v-if="!getToken || userInfo.avatar==''" src="../../../static/demo/icon/hd.png" mode=""></image>
+				<image v-if="getToken" :src="userInfo.avatar" mode=""></image>
 			</view>
 			<!-- 登录文字 -->
 			<view class="user-login">
 				<view class="login-po1">
-					<text class="top">{{getToken?infoList.name:'立即登录'}}</text>
-					<text class="vip" v-if="infoList.vip && getToken">{{infoList.vip}}</text>
+					<text class="top">{{getToken?userInfo.username:'立即登录'}}</text>
+					<text class="vip" v-if="getToken">永久会员</text>
 				</view>
 				<view class="login-po2">
-					{{getToken?infoList.describe:'登录解锁更多功能'}}
+					{{getToken?'暂无描述':'登录解锁更多功能'}}
 				</view>
 			</view>
 		</view>
@@ -29,33 +28,36 @@
 		mapState,
 		mapGetters
 	} from "vuex"
-	import userInfo from "@/config/user-login.js"
+	// import userInfo from "@/config/user-login.js"
 	// import mixinPage from "@/common/mixins/mixins.js"
 	export default {
 		// mixins:['mixinPage'],
 		name: "login",
 		props: {
-			infoList: {
-				type: Object,
-				default: () => userInfo()
-			}
+			// infoList: {
+			// 	type: Object,
+			// 	default: () => {}
+			// }
 		},
 		computed: {
-			...mapGetters(['getToken'])
+			...mapGetters(['getToken']),
+			...mapState(['userInfo'])
 		},
 		methods: {
 			myLogin() {
 				if (this.getToken) {
-					console.log('已登录');
+					// console.log('已登录');
+					uni.navigateTo({
+						url:'/pages/user-info/user-info'
+					})
 				} else {
-					console.log('未登录');
-					// this.navTo("/pages/user/registration")
+					// console.log('未登录');
 					uni.navigateTo({
 						url: '/pages/user/registration'
 					})
 				}
 			}
-		}
+		},
 	}
 </script>
 

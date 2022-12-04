@@ -24,7 +24,7 @@
 			<!-- 去登录去注册 以及忘记密码 -->
 			<view class="text-button">
 				<text class="goregister" @click="handleLoginFlag">{{loginFlag?'注册账号':'去登录'}}</text>
-				<text class="forget">忘记密码？</text>
+				<text class="forget" @click="goForget">忘记密码？</text>
 			</view>
 			<!-- 微信图标 -->
 			<view class="wxin">
@@ -32,7 +32,9 @@
 			</view>
 			<!-- 登录协议 -->
 			<view class="agreement" v-if="loginFlag">
-				<checkbox class="checkbox" :checked="checked" />
+				<checkbox-group @change="handleChecked">
+					<checkbox class="checkbox" :checked="checked" />
+				</checkbox-group>
 				<text>已阅读并同意用户协议&隐私声明</text>
 			</view>
 		</view>
@@ -90,10 +92,28 @@
 				this.loginFlag = !this.loginFlag
 				this.formList[2].show = this.loginFlag
 			},
+			// 复选框状态
+			handleChecked(e) {
+				// console.log(e);
+				if (e.detail.value.length > 0) {
+					this.checked = true
+				} else {
+					this.checked = false
+				}
+			},
 			// 登陆注册
 			handleRegister() {
 				if (this.loginFlag) {
 					console.log('点击登录');
+					if (!this.checked) {
+						uni.showToast({
+							title: '请先阅读并同意用户协议&隐私声明',
+							duration: 1000,
+							icon: "none"
+						})
+						return
+					}
+					this.handleLogin()
 				} else {
 					console.log('点击注册');
 					this.registerGo()
@@ -129,6 +149,44 @@
 					//TODO handle the exception
 					// console.log(e);
 				}
+			},
+			// 登录api
+			async handleLogin() {
+				try {
+					const res = await loginApi.getLogin(this.form)
+					// console.log(res);
+					if (res.data.code != 20000) {
+						uni.showToast({
+							title: res.data.data,
+							duration: 1000,
+							icon: "none"
+						})
+					} else {
+						uni.showToast({
+							title: '登录成功',
+							duration: 1000,
+							icon: "none"
+						})
+						this.$store.commit('setToken', res.data.data)
+						if (!res.data.data.phone) {
+							uni.navigateTo({
+								url: '/pages/bind-phone/bind-phone'
+							})
+						} else {
+							uni.switchTab({
+								url: '/pages/user/user'
+							})
+						}
+					}
+				} catch (e) {
+					//TODO handle the exception
+				}
+			},
+			// 跳转找回密码页面
+			goForget() {
+				uni.navigateTo({
+					url: '/pages/forget/forget'
+				})
 			}
 		},
 		components: {
@@ -239,6 +297,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
+			margin-top: 20rpx;
 
 			.checkbox {
 				transform: scale(0.7)

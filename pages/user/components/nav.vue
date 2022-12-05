@@ -1,6 +1,6 @@
 <template>
 	<view class="nav-page">
-		<view class="navItem" v-for="(item,i) in navBar" :key="i">
+		<view class="navItem" v-for="(item,i) in navBar" :key="i" @click="goNewPage(item)">
 			<view :class="item.icon" class="icon"></view>
 			<view class="title">
 				{{item.title}}
@@ -23,6 +23,25 @@
 				type: Array,
 				default: () => (navBarList())
 			}
+		},
+		methods: {
+			goNewPage(item) {
+				console.log(item);
+				if (item.login || this.$store.getters.getToken) {
+					uni.navigateTo({
+						url: item.page
+					})
+					if (item.tabbar) {
+						uni.switchTab({
+							url: item.page
+						})
+					}
+				} else {
+					uni.navigateTo({
+						url: '/pages/user/registration'
+					})
+				}
+			}
 		}
 	}
 </script>
@@ -37,6 +56,7 @@
 		align-items: center;
 		border-radius: 4rpx;
 		box-shadow: 0 1px 6px #ddd;
+		margin-bottom: 40rpx;
 
 		.navItem {
 			// text-align: center;
@@ -45,6 +65,7 @@
 			flex-direction: column;
 			justify-content: space-between;
 			align-items: center;
+			flex: 1;
 
 			.icon {
 				color: #febd00;

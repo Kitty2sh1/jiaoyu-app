@@ -37,5 +37,29 @@ export default {
 			method: 'POST',
 			data
 		})
-	}
+	},
+	// 找回密码api
+	getForget(data) {
+		return http.request({
+			url: '/forget',
+			method: 'POST',
+			data
+		})
+	},
+	// 修改密码api
+	getPassword(data) {
+		return http.request({
+			url: '/update_password',
+			method: 'POST',
+			data
+		})
+	},
+	// 退出登录api
+	getLoginOut(data) {
+		return http.request({
+			url: '/logout',
+			method: 'POST',
+			data
+		})
+	},
 }

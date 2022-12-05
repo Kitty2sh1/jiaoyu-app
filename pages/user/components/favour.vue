@@ -1,15 +1,15 @@
 <template>
 	<view class="favour">
 		<view class="favourItem" v-for="(item,i) in favourList" :key="i">
-			<view class="ele" v-for="(ele,index) in item" :key="index">
+			<view class="ele" v-for="(ele,index) in item" :key="index" @click="goNewPage(ele)">
 				<view class="left">
 					<text class="icon" :class="ele.icon"></text>
 					<text class="title">{{ele.title}}</text>
 				</view>
 				<view class="right">
-					<text class="rightIcon"></text>
+					<text class="rightText">{{ele.rightText}}</text>
+					<text class="rightIcon" v-if="ele.rightIcon"></text>
 				</view>
-
 			</view>
 		</view>
 	</view>
@@ -29,13 +29,30 @@
 			return {
 
 			};
-		}
+		},
+		methods: {
+			goNewPage(item) {
+				if (item.event) {
+					this.$emit(item.event)
+				}
+				if (item.login || this.$store.getters.getToken) {
+					uni.navigateTo({
+						url: item.page
+					})
+				} else {
+					if (item.page) {
+						uni.navigateTo({
+							url: '/pages/user/registration'
+						})
+					}
+				}
+			}
+		},
 	}
 </script>
 
 <style lang="scss">
 	.favour {
-		margin-top: 40rpx;
 		padding: 0 30rpx;
 
 		.favourItem {
@@ -44,7 +61,7 @@
 				align-items: center;
 				justify-content: space-between;
 				border-bottom: 1rpx solid #eee;
-				line-height: 117rpx;
+				line-height: 109rpx;
 				padding-right: 40rpx;
 
 				&:last-child {

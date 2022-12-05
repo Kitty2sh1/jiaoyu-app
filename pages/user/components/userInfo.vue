@@ -48,7 +48,7 @@
 				if (this.getToken) {
 					// console.log('已登录');
 					uni.navigateTo({
-						url:'/pages/user-info/user-info'
+						url: '/pages/user-info/user-info'
 					})
 				} else {
 					// console.log('未登录');

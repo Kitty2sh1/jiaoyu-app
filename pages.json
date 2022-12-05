@@ -68,6 +68,48 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/order-list/order-list",
+			"style": {
+				"navigationBarTitleText": "我的订单",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/msg-list/msg-list",
+			"style": {
+				"navigationBarTitleText": "消息列表",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/fava-list/fava-list",
+			"style": {
+				"navigationBarTitleText": "收藏列表",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/my-coupon/my-coupon",
+			"style": {
+				"navigationBarTitleText": "我的优惠券",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/setting/setting",
+			"style": {
+				"navigationBarTitleText": "我的设置",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/user-safe/user-safe",
+			"style": {
+				"navigationBarTitleText": "修改密码",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	],
 	"globalStyle": {

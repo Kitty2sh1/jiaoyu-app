@@ -9,10 +9,10 @@
 		<!-- 表单 -->
 		<view class="forgetInput">
 			<h2>找回密码</h2>
-			<user-input :formList="formList" v-model="form" :sendOutText="forgetText"></user-input>
+			<user-input :formList="formList" v-model="form" :sendOutText="forgetText" @getCode="getCode"></user-input>
 			<!-- 绑定按钮 -->
 			<view class="btn">
-				<button class="button">立即找回</button>
+				<button class="button" @click="goRetrieve">立即找回</button>
 			</view>
 		</view>
 	</view>
@@ -20,6 +20,7 @@
 
 <script>
 	import userInput from "@/pages/user/components/userInput.vue"
+	import loginApi from "@/api/login.js"
 	export default {
 		data() {
 			return {
@@ -58,13 +59,94 @@
 						prop: "repassword"
 					}
 				],
-				forgetText: '发送'
+				forgetText: '发送',
+				time: null, //定时器
+				timeFlag: false, //定时器开关
 			};
 		},
 		methods: {
 			// 返回上一页
 			backTo() {
 				uni.navigateBack()
+			},
+			// 找回密码api
+			async handleForget() {
+				try {
+					const res = await loginApi.getForget(this.form)
+					// console.log(res, '找回密码');
+					if (res.data.code != 20000) {
+						uni.showToast({
+							title: res.data.data,
+							icon: "none",
+							duration: 1000
+						})
+					} else {
+						uni.showToast({
+							title: '找回成功',
+							icon: "none",
+							duration: 2000
+						})
+						// 找回密码成功返回至登录页面
+						uni.navigateBack(1)
+					}
+				} catch (e) {
+					//TODO handle the exception
+				}
+			},
+			// 找回密码按钮
+			goRetrieve() {
+				uni.showLoading({
+					title: "提交中"
+				})
+				this.handleForget()
+			},
+			// 点击发送按钮获取验证码
+			getCode() {
+				// if(this.timeFlag){
+				// 	return false
+				// }
+				this.handleCaptcha()
+			},
+			// 验证码api
+			async handleCaptcha() {
+				try {
+					const res = await loginApi.getCaptcha({
+						phone: this.form.phone
+					})
+					// console.log(res);
+					if (res.data.code != 20000) {
+						uni.showToast({
+							title: res.data.data,
+							icon: 'none',
+							duration: 1000
+						})
+					} else {
+						uni.showToast({
+							title: '验证码：' + res.data.data,
+							icon: 'none',
+							duration: 1000
+						})
+						this.setTime()
+					}
+				} catch (e) {
+					//TODO handle the exception
+				}
+			},
+			// 定时器  发送验证码
+			setTime() {
+				if (this.timeFlag) return
+				this.timeFlag = true
+				let num = 60
+				this.time = setInterval(() => {
+					if (num <= 0) {
+						this.timeFlag = false
+						this.bindText = '发送'
+						clearInterval(this.time)
+						this.time = null
+					}
+					num--
+					this.bindText = num + 's'
+				}, 1000)
 			}
 		},
 		components: {

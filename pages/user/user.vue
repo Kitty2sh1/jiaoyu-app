@@ -25,6 +25,14 @@
 			return {
 
 			};
+		},
+		onNavigationBarButtonTap(e) {
+			if (e.index == 0) {
+				this.navTo('/pages/setting/setting')
+			}
+		},
+		onShow() {
+			this.$store.commit('init')
 		}
 	}
 </script>

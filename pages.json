@@ -3,7 +3,19 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "首页",
+				// "enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"searchInput": {
+							"placeholder": "请输入搜索关键词",
+							"placeholderColor": "#938f8b",
+							"align": "center",
+							"backgroundColor": "#f4f4f2",
+							"disabled": true
+						}
+					}
+				}
 			}
 		}, {
 			"path": "pages/user/user",

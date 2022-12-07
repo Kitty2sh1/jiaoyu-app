@@ -51,7 +51,7 @@
 			// 可用优惠券api
 			this.handleGroupList()
 			// 秒杀列表api
-			this.handleFlashsaleList()
+			// this.handleFlashsaleList()
 		},
 		methods: {
 			// 首页数据api
@@ -140,10 +140,10 @@
 			}
 		},
 		onNavigationBarSearchInputClicked() {
-			console.log('e');
-			// uni.navigateTo({
-			// 	url:'/pages/search/search'
-			// })
+			// console.log('e');
+			uni.navigateTo({
+				url: '/pages/search/search'
+			})
 		},
 		components: {
 			iBanner,

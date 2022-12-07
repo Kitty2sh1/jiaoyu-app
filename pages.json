@@ -121,7 +121,24 @@
 				"navigationBarTitleText": "修改密码",
 				"enablePullDownRefresh": false
 			}
-
+		}, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "搜索",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": {
+						"autoBackButton": true,
+						"searchInput": {
+							"placeholder": "输入搜索关键词",
+							"placeholderColor": "#938f8b",
+							"align": "left",
+							"backgroundColor": "#f4f4f2",
+							"autoFocus": true
+						}
+					}
+				}
+			}
 		}
 	],
 	"globalStyle": {

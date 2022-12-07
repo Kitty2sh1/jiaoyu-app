@@ -6,8 +6,12 @@
 		<i-nav-bar :navBarList="navBarList"></i-nav-bar>
 		<!-- 可用优惠券组件 -->
 		<i-coupon :couponList="couponList"></i-coupon>
-		<!-- 拼团列表api -->
+		<!-- 拼团列表组件 -->
 		<i-group :groupList="groupList"></i-group>
+		<!-- 秒杀列表 -->
+		<!-- <i-flashsale :flashsaleList="flashsaleList"></i-flashsale> -->
+		<!-- 最新列表 -->
+		<i-newest :newestList="newestList"></i-newest>
 	</view>
 </template>
 
@@ -20,6 +24,10 @@
 	import iCoupon from '../../components/common/i-coupon.vue'
 	// 拼团
 	import iGroup from '../../components/common/i-group.vue'
+	// 秒杀列表
+	// import iFlashsale from '../../components/common/i-flashsale.vue'
+	// 最新列表
+	import iNewest from '../../components/common/i-newest.vue'
 	// 首页api
 	import homeApi from '@/api/home.js'
 	export default {
@@ -31,6 +39,8 @@
 				couponList: [], //优惠券
 				groupList: [], //拼团列表
 				usable: '1',
+				// flashsaleList: [], //秒杀列表
+				newestList: [] //最新列表
 			}
 		},
 		onLoad() {
@@ -40,6 +50,8 @@
 			this.handleCouponList()
 			// 可用优惠券api
 			this.handleGroupList()
+			// 秒杀列表api
+			this.handleFlashsaleList()
 		},
 		methods: {
 			// 首页数据api
@@ -62,6 +74,9 @@
 							}
 							if (item.type == 'icons') {
 								this.navBarList = item.data
+							}
+							if (item.type == 'list') {
+								this.newestList = item.data
 							}
 						})
 					}
@@ -104,6 +119,24 @@
 				} catch (e) {
 					//TODO handle the exception
 				}
+			},
+			// 可用秒杀列表api
+			async handleFlashsaleList() {
+				try {
+					const res = await homeApi.getFlashsaleList(this.usable)
+					console.log('秒杀列表---', res);
+					if (res.data.code != 20000) {
+						uni.showToast({
+							title: res.data.data,
+							icon: 'none',
+							duration: 1500
+						})
+					} else {
+						// this.flashsaleList = res.data.data
+					}
+				} catch (e) {
+					//TODO handle the exception
+				}
 			}
 		},
 		onNavigationBarSearchInputClicked() {
@@ -116,7 +149,9 @@
 			iBanner,
 			iNavBar,
 			iCoupon,
-			iGroup
+			iGroup,
+			// iFlashsale,
+			iNewest
 		}
 	}
 </script>

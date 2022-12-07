@@ -22,5 +22,12 @@ export default {
 			url: `/group?usable=${usable}`,
 			method: 'GET'
 		})
+	},
+	// 可用秒杀列表api
+	getFlashsaleList(usable) {
+		return http.request({
+			url: `/flashsale?usable=${usable}`,
+			method: 'GET'
+		})
 	}
 }

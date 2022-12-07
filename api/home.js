@@ -16,4 +16,11 @@ export default {
 			data
 		})
 	},
+	// 拼团列表api
+	getGroupList(usable) {
+		return http.request({
+			url: `/group?usable=${usable}`,
+			method: 'GET'
+		})
+	}
 }

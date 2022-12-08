@@ -12,6 +12,8 @@
 		<!-- <i-flashsale :flashsaleList="flashsaleList"></i-flashsale> -->
 		<!-- 最新列表 -->
 		<i-newest :newestList="newestList"></i-newest>
+		<!-- 底部图片 -->
+		<i-image-ad :imageUrl="imageAd"></i-image-ad>
 	</view>
 </template>
 
@@ -28,6 +30,8 @@
 	// import iFlashsale from '../../components/common/i-flashsale.vue'
 	// 最新列表
 	import iNewest from '../../components/common/i-newest.vue'
+	// 底部图片
+	import iImageAd from '../../components/common/i-imageAd.vue'
 	// 首页api
 	import homeApi from '@/api/home.js'
 	export default {
@@ -40,7 +44,8 @@
 				groupList: [], //拼团列表
 				usable: '1',
 				// flashsaleList: [], //秒杀列表
-				newestList: [] //最新列表
+				newestList: [], //最新列表
+				imageAd: '', //底部图片
 			}
 		},
 		onLoad() {
@@ -77,6 +82,9 @@
 							}
 							if (item.type == 'list') {
 								this.newestList = item.data
+							}
+							if (item.type == 'imageAd') {
+								this.imageAd = item.data
 							}
 						})
 					}
@@ -151,7 +159,8 @@
 			iCoupon,
 			iGroup,
 			// iFlashsale,
-			iNewest
+			iNewest,
+			iImageAd
 		}
 	}
 </script>

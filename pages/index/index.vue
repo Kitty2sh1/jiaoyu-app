@@ -5,7 +5,7 @@
 		<!-- 图标分类组件 -->
 		<i-nav-bar :navBarList="navBarList"></i-nav-bar>
 		<!-- 可用优惠券组件 -->
-		<i-coupon :couponList="couponList"></i-coupon>
+		<i-coupon :couponList="couponList" @handleReceive="handleReceive"></i-coupon>
 		<!-- 拼团列表组件 -->
 		<i-group :groupList="groupList"></i-group>
 		<!-- 秒杀列表 -->
@@ -141,6 +141,43 @@
 						})
 					} else {
 						// this.flashsaleList = res.data.data
+					}
+				} catch (e) {
+					//TODO handle the exception
+				}
+			},
+			handleReceive(e) {
+				if (this.$store.state.token) {
+					this.getReceive(e.id)
+				} else {
+					uni.showLoading({
+						title: ''
+					})
+					this.getReceive(e.id)
+					this.handleCouponList()
+					uni.navigateTo({
+						url: '/pages/user/registration'
+					})
+				}
+			},
+			async getReceive(id) {
+				try {
+					const res = await homeApi.getReceive({
+						coupon_id: id
+					})
+					// console.log('res--',res);
+					if (res.data.code != 20000) {
+						uni.showToast({
+							title: res.data.data,
+							icon: 'none',
+							duration: 1500
+						})
+					} else {
+						uni.showToast({
+							title: '领取成功',
+							icon: 'none',
+							duration: 1500
+						})
 					}
 				} catch (e) {
 					//TODO handle the exception

@@ -16,6 +16,21 @@ export default {
 			data
 		})
 	},
+	// 领取优惠券api
+	getReceive(data) {
+		return http.request({
+			url: '/user_coupon/receive',
+			method: 'POST',
+			data
+		})
+	},
+	// 我的优惠券
+	getMyCoupon(data) {
+		return http.request({
+			url: `/user_coupon?page=${data.page}&limit=${data.limit}`,
+			method: 'GET',
+		})
+	},
 	// 拼团列表api
 	getGroupList(usable) {
 		return http.request({

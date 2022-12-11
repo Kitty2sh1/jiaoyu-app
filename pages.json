@@ -126,6 +126,7 @@
 			"style": {
 				"navigationBarTitleText": "搜索",
 				"enablePullDownRefresh": false,
+				"navigationBarBackgroundColor": "#fff",
 				"app-plus": {
 					"titleNView": {
 						"autoBackButton": true,
@@ -133,9 +134,15 @@
 							"placeholder": "输入搜索关键词",
 							"placeholderColor": "#938f8b",
 							"align": "left",
-							"backgroundColor": "#f4f4f2",
-							"autoFocus": true
-						}
+							"backgroundColor": "#f7f8fa",
+							"autoFocus": true,
+							"borderRadius": "40rpx"
+						},
+						"buttons": [{
+							"float": "right",
+							"text": "搜索",
+							"fontSize": "15"
+						}]
 					}
 				}
 			}

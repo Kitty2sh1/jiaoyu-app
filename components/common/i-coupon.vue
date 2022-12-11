@@ -7,7 +7,7 @@
 						<text class="money">￥{{item.price}}</text>
 						<text class="title">{{item.type=='course'?'适用课程：':'适用专栏：'}}{{item.value.title}}</text>
 					</view>
-					<view class="right" :class="item.isgetcoupon?'active':'right'">
+					<view class="right" :class="item.isgetcoupon?'active':'right'" @click="handleReceive(item)">
 						{{item.isgetcoupon?'已领取':'领取'}}
 					</view>
 				</view>
@@ -26,7 +26,15 @@
 			}
 		},
 		data() {
-			return {};
+			return {
+
+			};
+		},
+		methods: {
+			handleReceive(item) {
+				console.log(item);
+				this.$emit('handleReceive', item)
+			}
 		}
 	}
 </script>

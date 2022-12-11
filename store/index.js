@@ -10,7 +10,8 @@ const store = new Vuex.Store({
 		token: uni.getStorageSync(TOKEN) || '',
 		info: uni.getStorageSync(INFO) || {},
 		userInfo: uni.getStorageSync(INFO) || {},
-		phone: uni.getStorageSync(PHONE) || null
+		phone: uni.getStorageSync(PHONE) || null,
+		couponList: []
 	},
 	getters: {
 		getToken(state) {
